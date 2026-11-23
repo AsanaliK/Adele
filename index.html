@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adelie or not</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a confident student project poster, playful but exact with numbers
+   IDEA: the reference landing-page template turned into a penguin field report
+   PICTURE: a tilted phone with a cropped geometric Adelie face among flat semicircles
+   COLOUR and TYPE: lilac field, blush cards, navy ink, hot-pink accent; Jost (Futura-like)
+   LAYOUT: stacked rounded cards on the lilac field, giant headings that end in a full stop */
+:root{color-scheme:light;--lilac:#BC82CC;--plum:#84469A;--navy:#27235A;--pink:#EC6AB2;--blush:#FFCCE8;--blush2:#FFE4F2;--violet:#8E4DA6;--cream:#FFF7FB;--ink:#27235A}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--lilac);color:var(--ink);font:400 17px/1.55 Jost,"Futura","Century Gothic",system-ui,sans-serif;overflow-x:clip}
+.field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.field i{position:absolute;border-radius:50%;display:block}
+.field .c1{width:62vw;height:62vw;right:-18vw;top:-34vw;background:var(--plum);opacity:.85}
+.field .c2{width:34vw;height:34vw;left:-22vw;bottom:-10vw;background:var(--navy)}
+.field .c3{width:40vw;height:40vw;right:-6vw;bottom:-30vw;background:var(--plum);opacity:.85}
+main{position:relative;z-index:1;padding:clamp(16px,4vw,64px) clamp(10px,4vw,56px)}
+.card{max-width:1240px;margin:0 auto clamp(24px,4vw,48px);background:var(--blush);border-radius:clamp(24px,3vw,40px);box-shadow:0 46px 60px -34px rgba(70,20,95,.75);padding:clamp(24px,4.4vw,64px) clamp(20px,5.4vw,84px);position:relative;overflow:hidden}
+h1,h2,h3{font-weight:700;line-height:1.02;margin:0;color:var(--navy);text-wrap:balance}
+h1{font-size:clamp(58px,9.6vw,148px);letter-spacing:-.01em}
+h2{font-size:clamp(46px,6.6vw,92px);margin-bottom:14px}
+h3{font-size:clamp(22px,2.2vw,28px);margin:0 0 8px}
+p{margin:0 0 14px;max-width:68ch}
+.lead{color:var(--violet);font-size:clamp(19px,1.9vw,24px);font-weight:400;line-height:1.35;max-width:36ch}
+.note{font-size:15px;color:var(--plum)}
+a{color:var(--navy)}
+/* header */
+.top{display:flex;align-items:center;gap:clamp(12px,3vw,40px);flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;font-size:21px;line-height:.95;letter-spacing:.01em;margin-right:auto}
+.logo svg{width:66px;height:40px;flex:none}
+.nav{display:flex;gap:clamp(14px,3vw,46px);align-items:center;flex-wrap:wrap}
+.nav a{text-decoration:none;font-weight:600;font-size:15px;text-transform:uppercase;padding:10px 0}
+.nav a:hover{color:var(--pink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 30px;border-radius:999px;text-decoration:none;font:600 16px Jost,sans-serif;border:0;cursor:pointer}
+.btn.pink{background:var(--pink);color:#fff;text-transform:uppercase;font-size:15px;min-width:150px}
+.btn.navy{background:var(--navy);color:#fff;text-transform:uppercase;letter-spacing:.12em;font-weight:700;font-size:17px}
+.btn.line{background:transparent;color:var(--navy);border:1.5px solid var(--navy);letter-spacing:.1em;font-weight:400;font-size:18px}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.burger{display:none;width:48px;height:48px;border:0;background:none;cursor:pointer;padding:12px 8px}
+.burger span{display:block;height:3px;background:var(--navy);margin:5px 0;border-radius:2px}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:center;gap:20px;margin-top:clamp(28px,6vw,90px)}
+.hero .lead{margin:clamp(20px,3vw,40px) 0 clamp(26px,3.4vw,44px)}
+.ctas{display:flex;gap:22px;flex-wrap:wrap}
+.art{width:100%;height:auto;display:block}
+.vert{position:absolute;right:clamp(14px,2.2vw,34px);top:50%;transform:translateY(-50%);writing-mode:vertical-rl;text-orientation:upright;font-size:13px;letter-spacing:.35em;color:var(--plum)}
+.mouse{display:block;width:26px;height:42px;border:1.5px solid var(--navy);border-radius:14px;margin:clamp(16px,3vw,30px) auto 0;position:relative}
+.mouse::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:8px;margin-left:-1.5px;border-radius:2px;background:var(--navy);animation:wheel 1.8s ease-in-out infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(10px);opacity:0}100%{opacity:0}}
+/* generic layout */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(20px,3vw,44px);margin-top:clamp(20px,3vw,36px)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:start;margin-top:clamp(20px,3vw,36px)}
+.panel{background:var(--blush2);border-radius:28px;padding:clamp(18px,2.4vw,30px)}
+.defs{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 26px;margin:0;font-size:18px}
+.defs dt{font-weight:700;color:var(--pink)}
+.defs dd{margin:0}
+code{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:.88em;background:var(--blush2);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}
+.tag{display:inline-block;padding:4px 14px;border-radius:999px;font-weight:600;font-size:14px;color:#fff;background:var(--navy)}
+.tag.p{background:var(--pink)}
+/* penguins */
+.flock{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,3vw,36px);margin-top:28px}
+.peng{text-align:center}
+.peng .stage{position:relative;aspect-ratio:1/1;max-width:250px;margin:0 auto 10px}
+.peng svg{position:absolute;inset:0;width:100%;height:100%}
+.peng h3{margin-top:4px}
+.peng .m{font-size:15px;color:var(--plum);margin:6px 0 0}
+/* bars */
+.stackbar{display:flex;height:64px;border-radius:999px;overflow:hidden;margin:16px 0 10px}
+.stackbar div{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:15px;white-space:nowrap;padding:0 8px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:15px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px;background:var(--c)}
+.fig{position:relative;min-height:240px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.fig.tall{min-height:420px}
+.fig.sq{min-height:0;aspect-ratio:1/1;max-width:440px}
+.hists{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2.4vw,30px);margin-top:22px}
+.hists h3{font-size:19px}
+.hists p{font-size:15px;margin-top:6px}
+svg text{font-family:Jost,sans-serif;fill:var(--navy)}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0}
+.chip{padding:10px 18px;border-radius:999px;background:var(--cream);font-weight:500;font-size:16px}
+.chip.n{background:var(--navy);color:#fff}
+.chip.p{background:var(--pink);color:#fff}
+.arrow{color:var(--plum);font-weight:700}
+.big{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,2vw,26px);margin:26px 0 8px}
+.big div{border-top:3px solid var(--navy);padding-top:12px}
+.big b{display:block;font-size:clamp(40px,5.4vw,76px);font-weight:700;line-height:1;color:var(--navy)}
+.big div:first-child b{color:var(--pink)}
+.big span{font-size:16px;color:var(--plum)}
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;max-width:440px;font-size:15px}
+.cm .h{align-self:end;text-align:center;color:var(--plum);padding-bottom:4px}
+.cm .r{align-self:center;color:var(--plum);text-align:right;padding-right:6px}
+.cm .v{border-radius:20px;aspect-ratio:1.25/1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;background:var(--navy)}
+.cm .v b{font-size:clamp(40px,5vw,60px);line-height:1}
+.cm .v.e{background:var(--pink)}
+.miss{display:grid;gap:14px;margin-top:12px}
+.miss div{background:var(--cream);border-radius:22px;padding:16px 20px}
+.miss b{color:var(--pink)}
+.hbar{display:grid;grid-template-columns:150px minmax(0,1fr) 58px;align-items:center;gap:10px;margin:10px 0;font-size:15px}
+.hbar .t{height:22px;border-radius:999px;background:var(--cream);position:relative}
+.hbar .f{position:absolute;top:0;bottom:0;border-radius:999px}
+.hbar .z{position:absolute;top:-4px;bottom:-4px;left:50%;width:2px;background:var(--plum)}
+.hbar .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+/* try it */
+.try{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,3vw,44px);margin-top:24px;align-items:start}
+.slider{margin:0 0 14px}
+.slider label{display:flex;justify-content:space-between;font-weight:600;font-size:17px}
+.slider output{font-variant-numeric:tabular-nums;color:var(--pink);white-space:nowrap}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:10px;border-radius:999px;background:var(--lilac)}
+input[type=range]::-moz-range-track{height:10px;border-radius:999px;background:var(--lilac)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--navy);border:4px solid var(--blush);margin-top:-9px}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--navy);border:4px solid var(--blush)}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px}
+.presets button{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--navy);background:transparent;color:var(--navy);font:500 15px Jost,sans-serif;cursor:pointer}
+.presets button[aria-pressed=true]{background:var(--navy);color:#fff}
+.out{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:10px}
+.out .pc{font-size:clamp(64px,8vw,112px);font-weight:700;line-height:.9;color:var(--pink);font-variant-numeric:tabular-nums}
+.out .w{font-size:clamp(24px,2.6vw,34px);font-weight:700;padding-bottom:6px}
+.seg{display:inline-flex;border:1.5px solid var(--navy);border-radius:999px;overflow:hidden;margin:6px 0 14px}
+.seg button{min-height:44px;padding:0 18px;border:0;background:transparent;font:500 15px Jost,sans-serif;color:var(--navy);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--navy);color:#fff}
+table{border-collapse:collapse;width:100%;font-size:16px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid rgba(39,35,90,.18);font-variant-numeric:tabular-nums;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:600;color:var(--plum)}
+tr.pick td{background:var(--pink);color:#fff;font-weight:600}
+tr.pick td:first-child{border-radius:14px 0 0 14px}tr.pick td:last-child{border-radius:0 14px 14px 0}
+.scroll{overflow-x:auto}
+.how td,.how th{font-size:15px;padding:6px 6px}
+.cost{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
+.cost div{border-radius:24px;padding:20px 22px;background:var(--cream)}
+.cost div.hot{background:var(--navy);color:#fff}
+.cost div.hot h3{color:#fff}
+.verdict p{font-size:18px}
+.mini h3{font-size:22px;color:var(--pink)}
+.src p{font-size:15px}
+@media(max-width:900px){
+ .nav{display:none;width:100%;flex-direction:column;align-items:flex-start;gap:0}
+ .nav.open{display:flex}
+ .burger{display:block}
+ .top .btn.pink{display:none}
+ .hero{grid-template-columns:1fr}
+ .vert{display:none}
+ .two,.try{grid-template-columns:1fr}
+ .big{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ .flock,.hists{grid-template-columns:1fr}
+ .peng .stage{max-width:200px}
+ .cost{grid-template-columns:1fr}
+ .hbar{grid-template-columns:112px minmax(0,1fr) 50px}
+ .fig.tall{min-height:340px}
+ .stackbar div{font-size:13px}
+}
+</style>
+</head>
+<body>
+<div class="field" aria-hidden="true"><i class="c1"></i><i class="c2"></i><i class="c3"></i></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <g id="pbody">
+   <ellipse cx="80" cy="213" rx="15" ry="6" fill="#EC6AB2" transform="translate(-20 0)"/>
+   <ellipse cx="80" cy="213" rx="15" ry="6" fill="#EC6AB2" transform="translate(20 0)"/>
+   <ellipse cx="28" cy="132" rx="12" ry="46" fill="#27235A" transform="rotate(16 28 132)"/>
+   <ellipse cx="132" cy="132" rx="12" ry="46" fill="#27235A" transform="rotate(-16 132 132)"/>
+   <ellipse cx="80" cy="134" rx="56" ry="78" fill="#27235A"/>
+   <ellipse cx="80" cy="148" rx="40" ry="60" fill="#FFF7FB"/>
+   <circle cx="80" cy="58" r="42" fill="#27235A"/>
+  </g>
+ </defs>
+</svg>
+
+<main>
+<!-- HERO -->
+<section class="card" id="top">
+ <header class="top">
+  <a class="logo" href="#top" aria-label="Adelie or not, home">
+   <svg viewBox="0 0 66 40" aria-hidden="true"><circle cx="20" cy="20" r="14.5" fill="none" stroke="#27235A" stroke-width="9"/><path d="M38 4 L64 20 L38 36 Z" fill="#27235A"/></svg>
+   <span>ADELIE<br>OR NOT</span>
+  </a>
+  <nav class="nav" id="nav">
+   <a href="#about">About</a><a href="#data">Data</a><a href="#models">Models</a><a href="#results">Results</a><a href="#decide">Decide</a>
+  </nav>
+  <a class="btn pink" href="#try">Try it</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+ </header>
+
+ <div class="hero">
+  <div>
+   <h1>Adelie<br>or not.</h1>
+   <p class="lead">A supervised model that tells an Adelie penguin from its neighbours using three measurements: bill length, bill depth and flipper length.</p>
+   <div class="ctas"><a class="btn navy" href="#try">Try the model</a><a class="btn line" href="#about">see more</a></div>
+  </div>
+  <svg class="art" viewBox="0 0 640 560" role="img" aria-label="Flat geometric shapes and a tilted phone showing a close-up of an Adelie penguin face with the label P(Adelie) 0.96">
+   <defs>
+    <radialGradient id="shade" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#84469A" stop-opacity=".5"/><stop offset="1" stop-color="#84469A" stop-opacity="0"/></radialGradient>
+    <clipPath id="screen"><rect x="-108" y="-206" width="216" height="412" rx="24"/></clipPath>
+   </defs>
+   <ellipse cx="410" cy="522" rx="220" ry="26" fill="url(#shade)"/>
+   <path d="M300 92 a46 46 0 0 1 92 0 Z" fill="#EC6AB2"/>
+   <path d="M214 126 h290 a145 145 0 0 1 -290 0 Z" fill="#BC82CC"/>
+   <circle cx="520" cy="212" r="122" fill="#BC82CC"/>
+   <circle cx="498" cy="166" r="44" fill="#FFCCE8"/>
+   <rect x="150" y="300" width="76" height="300" fill="#BC82CC" transform="rotate(-38 188 300)"/>
+   <rect x="252" y="214" width="120" height="60" fill="#BC82CC" transform="rotate(-36 312 244)"/>
+   <path d="M120 330 a128 128 0 0 1 256 0 Z" fill="#84469A"/>
+   <path d="M92 448 h156 a78 78 0 0 1 -156 0 Z" fill="#27235A"/>
+   <path d="M538 470 a52 52 0 0 1 104 0 Z" fill="#BC82CC"/>
+   <path d="M538 520 a52 52 0 0 1 104 0 Z" fill="#BC82CC"/>
+   <g transform="translate(408 268) rotate(35)">
+    <rect x="-120" y="-218" width="240" height="436" rx="34" fill="#161328"/>
+    <g clip-path="url(#screen)">
+     <rect x="-108" y="-206" width="216" height="412" fill="#EC6AB2"/>
+     <path d="M-108 40 L108 -150 L108 -110 L-108 80 Z" fill="#FFCCE8" opacity=".55"/>
+     <circle cx="0" cy="-48" r="176" fill="#27235A"/>
+     <circle cx="-56" cy="-72" r="40" fill="#FFF7FB"/>
+     <circle cx="-56" cy="-72" r="20" fill="#27235A"/>
+     <circle cx="68" cy="-72" r="40" fill="#FFF7FB"/>
+     <circle cx="68" cy="-72" r="20" fill="#27235A"/>
+     <path d="M-14 -10 L32 -10 L8 50 Z" fill="#0E0B22"/>
+     <path d="M-14 -10 L32 -10 L26 4 L-8 4 Z" fill="#EC6AB2"/>
+     <ellipse cx="0" cy="250" rx="170" ry="140" fill="#FFF7FB"/>
+     <text x="0" y="168" text-anchor="middle" font-size="22" font-weight="600">P(Adelie)</text>
+     <text x="0" y="196" text-anchor="middle" font-size="30" font-weight="700" style="fill:#EC6AB2">0.96</text>
+    </g>
+   </g>
+  </svg>
+ </div>
+ <div class="vert" aria-hidden="true">VARIANT 52</div>
+ <a class="mouse" href="#about" aria-label="Scroll to the project"></a>
+</section>
+
+<!-- ABOUT -->
+<section class="card" id="about">
+ <h2>The question.</h2>
+ <p class="lead">Researchers at Palmer Station, Antarctica measured 344 penguins of three species. Our model answers one yes/no question about each bird.</p>
+ <div class="two">
+  <dl class="defs">
+   <dt>Object</dt><dd>One adult penguin, measured in 2007–2009</dd>
+   <dt>Target</dt><dd><code>is_adelie</code>: <b>1</b> = Adelie, <b>0</b> = Chinstrap or Gentoo</dd>
+   <dt>Features</dt><dd>Bill length, bill depth, flipper length (mm)</dd>
+   <dt>Data</dt><dd>palmerpenguins: 344 rows, real field labels, CC0 licence</dd>
+   <dt>Task</dt><dd>Supervised binary classification</dd>
+  </dl>
+  <div class="panel">
+   <svg viewBox="0 0 420 210" role="img" aria-label="Diagram of a penguin head: bill length is measured along the top of the bill, bill depth is the height of the bill at its base">
+    <circle cx="110" cy="105" r="84" fill="#27235A"/>
+    <circle cx="128" cy="86" r="17" fill="#FFF7FB"/><circle cx="131" cy="86" r="8" fill="#27235A"/>
+    <path d="M182 82 L346 104 L182 130 Z" fill="#EC6AB2"/>
+    <line x1="182" y1="58" x2="346" y2="58" stroke="#27235A" stroke-width="2"/>
+    <path d="M182 52 v12 M346 52 v12" stroke="#27235A" stroke-width="2"/>
+    <text x="264" y="46" text-anchor="middle" font-size="19" font-weight="600">bill length</text>
+    <line x1="372" y1="82" x2="372" y2="130" stroke="#27235A" stroke-width="2"/>
+    <path d="M366 82 h12 M366 130 h12" stroke="#27235A" stroke-width="2"/>
+    <line x1="186" y1="82" x2="372" y2="82" stroke="#27235A" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="186" y1="130" x2="372" y2="130" stroke="#27235A" stroke-width="1" stroke-dasharray="4 4"/>
+    <text x="364" y="160" text-anchor="middle" font-size="19" font-weight="600">bill depth</text>
+   </svg>
+   <p class="note" style="margin:6px 0 0">Flipper length is the third measurement: the wing, from body to tip.</p>
+  </div>
+ </div>
+ <div class="flock" id="flock"></div>
+</section>
+
+<!-- DATA -->
+<section class="card" id="data">
+ <h2>The data.</h2>
+ <p class="lead">Before training anything, we checked the balance, the gaps and the shape of every feature.</p>
+ <div class="two">
+  <div>
+   <h3>Class balance</h3>
+   <div class="stackbar" id="stack"></div>
+   <div class="legend"><span style="--c:#EC6AB2">Class 1: 152 Adelie (44%)</span><span style="--c:#27235A">Class 0: 192 others (56%)</span></div>
+   <p style="margin-top:12px">Only slightly unbalanced, so no resampling. We still split with <code>stratify</code> and score with F1, which focuses on the Adelie class.</p>
+  </div>
+  <div>
+   <h3>Missing readings</h3>
+   <div class="miss">
+    <div><b>2 penguins</b> have no measurements at all: row 3 (Adelie) and row 271 (Gentoo). These are real gaps in the field data.</div>
+    <div>We keep them. Inside the pipeline a <b>median imputer</b> fills the gaps, using medians learned from training rows only. No fake gaps were added.</div>
+   </div>
+  </div>
+ </div>
+ <div class="hists">
+  <div><h3>Bill length</h3><div class="fig"><svg id="h0"></svg></div><p>The clearest signal: Adelie average <b id="mL1"></b> mm vs <b id="mL0"></b> mm for the others. Overlap only between about 41 and 46 mm.</p></div>
+  <div><h3>Bill depth</h3><div class="fig"><svg id="h1"></svg></div><p>Adelie bills are deeper (<b id="mD1"></b> vs <b id="mD0"></b> mm), but Chinstrap bills are just as deep, so depth alone is not enough.</p></div>
+  <div><h3>Flipper length</h3><div class="fig"><svg id="h2"></svg></div><p>Adelie flippers are shorter (<b id="mF1"></b> vs <b id="mF0"></b> mm). Gentoo flippers are long; Chinstrap ones overlap with Adelie.</p></div>
+ </div>
+ <div class="legend" style="margin-top:6px"><span style="--c:#EC6AB2">Adelie (1)</span><span style="--c:#27235A">Other (0)</span></div>
+ <div class="two">
+  <div class="fig tall"><svg id="sc1" role="img" aria-label="Scatter plot of bill length against bill depth for 342 penguins"></svg></div>
+  <div>
+   <h3>Length and depth together</h3>
+   <p>Each dot is a penguin. Adelie penguins sit in their own group in the top-left corner: <b>short and deep</b> bills. Gentoo penguins have long, shallow bills; Chinstrap penguins have long, deep ones.</p>
+   <p>An almost straight line separates Adelie from the rest, so a linear model should already work well. The features use different scales (flipper about 200 mm, depth about 17 mm), so we standardize them.</p>
+   <div class="legend"><span style="--c:#EC6AB2">Adelie</span><span style="--c:#84469A">Chinstrap</span><span style="--c:#27235A">Gentoo</span></div>
+  </div>
+ </div>
+</section>
+
+<!-- MODELS -->
+<section class="card" id="models">
+ <h2>Two models.</h2>
+ <p class="lead">Split first, then let each pipeline learn only from the training penguins.</p>
+ <h3 style="margin-top:26px">80/20 stratified split</h3>
+ <div class="stackbar"><div style="flex:275;background:var(--navy)">275 train (44.4% Adelie)</div><div style="flex:69;background:var(--pink)">69 test</div></div>
+ <p>The test penguins are locked away. Imputer and scaler never see them, so nothing leaks from the test set into training.</p>
+ <div class="two">
+  <div>
+   <h3>The two pipelines</h3>
+   <div class="chips"><span class="chip">Median imputer</span><span class="arrow">→</span><span class="chip">Standard scaler</span><span class="arrow">→</span><span class="chip p">Logistic Regression</span></div>
+   <div class="chips"><span class="chip">Median imputer</span><span class="arrow">→</span><span class="chip">Standard scaler</span><span class="arrow">→</span><span class="chip n">Random Forest</span></div>
+   <p class="note">Logistic Regression learns one weighted formula and turns it into a probability. Random Forest grows 150 trees (depth ≤ 6, at least 3 penguins per leaf) and lets them vote.</p>
+  </div>
+  <div>
+   <h3>Cross-validation F1</h3>
+   <div class="fig" style="min-height:190px"><svg id="cvp" role="img" aria-label="Dot plot of F1 scores for three folds: Logistic Regression 0.976, 0.963, 0.988; Random Forest 0.976, 0.935, 0.976"></svg></div>
+   <p>Same 3 stratified folds, same F1 metric, training data only. <b>Logistic Regression wins</b>: mean 0.976 (SD 0.010) vs 0.962 (SD 0.019). It is also steadier from fold to fold.</p>
+  </div>
+ </div>
+</section>
+
+<!-- RESULTS -->
+<section class="card" id="results">
+ <h2>The results.</h2>
+ <p class="lead">The winner was trained on all 275 training penguins and tested once on 69 penguins it had never seen.</p>
+ <div class="big">
+  <div><b>0.967</b><span>F1 (Adelie)</span></div>
+  <div><b>0.967</b><span>Precision</span></div>
+  <div><b>0.967</b><span>Recall</span></div>
+  <div><b>0.999</b><span>ROC-AUC</span></div>
+ </div>
+ <div class="two">
+  <div>
+   <h3>Confusion matrix</h3>
+   <div class="cm">
+    <div></div><div class="h">predicted Other</div><div class="h">predicted Adelie</div>
+    <div class="r">real Other</div><div class="v"><b>38</b>correct</div><div class="v e"><b>1</b>false positive</div>
+    <div class="r">real Adelie</div><div class="v e"><b>1</b>false negative</div><div class="v"><b>29</b>correct</div>
+   </div>
+   <p style="margin-top:14px">2 mistakes out of 69 penguins at the usual threshold of 0.5.</p>
+  </div>
+  <div>
+   <h3>ROC curve</h3>
+   <div class="fig sq"><svg id="roc" role="img" aria-label="ROC curve that rises almost straight to the top-left corner, area under the curve 0.999"></svg></div>
+  </div>
+ </div>
+ <h3 style="margin-top:30px">The two mistakes are borderline penguins</h3>
+ <div class="cost">
+  <div><h3>Penguin 129: a missed Adelie</h3><p style="margin:0">An Adelie with an unusually long bill (44.1 mm) and long flippers (210 mm). The model gave it only <b>0.40</b>.</p></div>
+  <div><h3>Penguin 340: a Chinstrap called Adelie</h3><p style="margin:0">A Chinstrap with a short bill (43.5 mm) and deep bill (18.1 mm). It got <b>0.56</b>, just over 0.5.</p></div>
+ </div>
+ <p>Both sit in the overlap zone from the histograms, and both probabilities are close to 0.5.</p>
+ <div class="two">
+  <div>
+   <h3>Logistic Regression weights</h3>
+   <div id="coef"></div>
+   <p class="note">Standardized, so they can be compared. Negative = less likely Adelie.</p>
+  </div>
+  <div>
+   <h3>Random Forest importance</h3>
+   <div id="imp"></div>
+   <p class="note">How much each feature helps the trees split.</p>
+  </div>
+ </div>
+ <p style="margin-top:14px">Both models agree: <b>bill length matters most</b>. They differ on second place because bill depth and flipper length carry partly the same information (both separate Gentoo). These are associations in this dataset, not causes.</p>
+</section>
+
+<!-- TRY -->
+<section class="card" id="try">
+ <h2>Try it.</h2>
+ <p class="lead">Move the sliders. This page runs the exact formula our notebook learned: same scaler, same weights, same intercept.</p>
+ <div class="try">
+  <div>
+   <div class="slider"><label for="sL">Bill length <output id="oL"></output></label><input type="range" id="sL" min="32" max="60" step="0.1" value="40.2"></div>
+   <div class="slider"><label for="sD">Bill depth <output id="oD"></output></label><input type="range" id="sD" min="13" max="22" step="0.1" value="18.6"></div>
+   <div class="slider"><label for="sF">Flipper length <output id="oF"></output></label><input type="range" id="sF" min="170" max="232" step="1" value="192"></div>
+   <div class="presets" id="presets"></div>
+   <div class="out"><div class="pc" id="pc">96%</div><div class="w" id="word">Adelie</div></div>
+   <div>Threshold <span class="seg" role="group" aria-label="Decision threshold"><button id="t5" aria-pressed="false">0.5</button><button id="t7" aria-pressed="true">0.7 (our choice)</button></span></div>
+   <div class="scroll"><table class="how" id="how"></table></div>
+  </div>
+  <div>
+   <div class="fig tall"><svg id="sc2" role="img" aria-label="Scatter plot with your penguin marked as a ring and the model's decision line"></svg></div>
+   <p class="note">The ring is your penguin. Dashed line: where the probability equals the threshold, for the current flipper length. Above-left of the line the model says Adelie.</p>
+  </div>
+ </div>
+ <p class="note">"Our new penguin" uses made-up but realistic measurements for the demo. Penguins 129 and 340 are real test penguins.</p>
+</section>
+
+<!-- DECIDE -->
+<section class="card" id="decide">
+ <h2>Decide.</h2>
+ <p class="lead">Which mistake costs more? Imagine a field team using the model in a census of Adelie penguins.</p>
+ <div class="cost">
+  <div><h3>False negative</h3><p style="margin:0">An Adelie is called "other". We <b>under-count</b> Adelie penguins.</p></div>
+  <div class="hot"><h3>False positive</h3><p style="margin:0">A Chinstrap or Gentoo is called Adelie. We <b>over-count</b> them and could hide a real decline. For a census, this is the costlier error.</p></div>
+ </div>
+ <div class="two">
+  <div>
+   <h3>Thresholds on training folds</h3>
+   <div class="scroll"><table>
+    <thead><tr><th>Threshold</th><th>Precision</th><th>Recall</th><th>F1</th><th>False pos.</th><th>False neg.</th></tr></thead>
+    <tbody>
+     <tr><td>0.3</td><td>0.931</td><td>1.000</td><td>0.964</td><td>9</td><td>0</td></tr>
+     <tr><td>0.4</td><td>0.945</td><td>0.984</td><td>0.964</td><td>7</td><td>2</td></tr>
+     <tr><td>0.5</td><td>0.968</td><td>0.984</td><td>0.976</td><td>4</td><td>2</td></tr>
+     <tr><td>0.6</td><td>0.975</td><td>0.975</td><td>0.975</td><td>3</td><td>3</td></tr>
+     <tr class="pick"><td>0.7</td><td>0.992</td><td>0.975</td><td>0.983</td><td>1</td><td>3</td></tr>
+    </tbody>
+   </table></div>
+   <p class="note" style="margin-top:8px">Out-of-fold probabilities on the 275 training penguins, so the test set stays untouched.</p>
+  </div>
+  <div>
+   <h3>Our choice: 0.7</h3>
+   <p>Going from 0.5 to 0.7 cuts false positives from 4 to 1 and costs one extra false negative. F1 even rises to 0.983.</p>
+   <p>Checked once on the test set: <b>0 false positives, 1 false negative</b> (penguin 129).</p>
+   <p>If missing an Adelie were the costly error, for example an alert for a protected species, we would go the other way: at 0.3 recall is 1.000, but false positives grow to 9.</p>
+  </div>
+ </div>
+</section>
+
+<!-- VERDICT -->
+<section class="card verdict" id="verdict">
+ <h2>The verdict.</h2>
+ <p>We used the open palmerpenguins dataset (real field labels, nothing simulated) to decide whether a penguin is an Adelie from three measurements. After an 80/20 stratified split and leakage-safe pipelines, Logistic Regression beat Random Forest on 3-fold cross-validation (F1 0.976 vs 0.962). On the untouched test set it reached F1 0.967 and ROC-AUC 0.999, with one false positive and one false negative. Bill length was the most influential feature, then bill depth. This is performance on one public benchmark, not a guarantee for other colonies or years.</p>
+ <div class="cols mini">
+  <div><h3>Limitations</h3><p>Only 344 penguins from 3 islands, measured in 2007–2009. Only three species exist in the data, so any other penguin would still be forced into "Adelie" or "other". With 69 test penguins, one mistake moves F1 by about 1.6 points.</p></div>
+  <div><h3>Risks</h3><p>Penguins from other colonies or years may look or be measured differently. All our mistakes happened between probabilities 0.4 and 0.6, so answers there should be double-checked. Importance is not cause and effect.</p></div>
+  <div><h3>Improvement</h3><p>Measure penguins from later years and other colonies and use them as a truly new test set. Also try body mass as a fourth feature and compare models with repeated cross-validation.</p></div>
+ </div>
+ <div class="src" style="margin-top:26px">
+  <h3>Source</h3>
+  <p>Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. <a href="https://allisonhorst.github.io/palmerpenguins/">allisonhorst.github.io/palmerpenguins</a>, doi:10.5281/zenodo.3960218. Licence CC0.</p>
+  <p>Gorman KB, Williams TD, Fraser WR (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). PLoS ONE 9(3): e90081. Data collected by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER.</p>
+ </div>
+</section>
+</main>
+
+<script>
+{
+const DATA = {"pts":[[39.1,18.7,181,"A"],[39.5,17.4,186,"A"],[40.3,18.0,195,"A"],[36.7,19.3,193,"A"],[39.3,20.6,190,"A"],[38.9,17.8,181,"A"],[39.2,19.6,195,"A"],[34.1,18.1,193,"A"],[42.0,20.2,190,"A"],[37.8,17.1,186,"A"],[37.8,17.3,180,"A"],[41.1,17.6,182,"A"],[38.6,21.2,191,"A"],[34.6,21.1,198,"A"],[36.6,17.8,185,"A"],[38.7,19.0,195,"A"],[42.5,20.7,197,"A"],[34.4,18.4,184,"A"],[46.0,21.5,194,"A"],[37.8,18.3,174,"A"],[37.7,18.7,180,"A"],[35.9,19.2,189,"A"],[38.2,18.1,185,"A"],[38.8,17.2,180,"A"],[35.3,18.9,187,"A"],[40.6,18.6,183,"A"],[40.5,17.9,187,"A"],[37.9,18.6,172,"A"],[40.5,18.9,180,"A"],[39.5,16.7,178,"A"],[37.2,18.1,178,"A"],[39.5,17.8,188,"A"],[40.9,18.9,184,"A"],[36.4,17.0,195,"A"],[39.2,21.1,196,"A"],[38.8,20.0,190,"A"],[42.2,18.5,180,"A"],[37.6,19.3,181,"A"],[39.8,19.1,184,"A"],[36.5,18.0,182,"A"],[40.8,18.4,195,"A"],[36.0,18.5,186,"A"],[44.1,19.7,196,"A"],[37.0,16.9,185,"A"],[39.6,18.8,190,"A"],[41.1,19.0,182,"A"],[37.5,18.9,179,"A"],[36.0,17.9,190,"A"],[42.3,21.2,191,"A"],[39.6,17.7,186,"A"],[40.1,18.9,188,"A"],[35.0,17.9,190,"A"],[42.0,19.5,200,"A"],[34.5,18.1,187,"A"],[41.4,18.6,191,"A"],[39.0,17.5,186,"A"],[40.6,18.8,193,"A"],[36.5,16.6,181,"A"],[37.6,19.1,194,"A"],[35.7,16.9,185,"A"],[41.3,21.1,195,"A"],[37.6,17.0,185,"A"],[41.1,18.2,192,"A"],[36.4,17.1,184,"A"],[41.6,18.0,192,"A"],[35.5,16.2,195,"A"],[41.1,19.1,188,"A"],[35.9,16.6,190,"A"],[41.8,19.4,198,"A"],[33.5,19.0,190,"A"],[39.7,18.4,190,"A"],[39.6,17.2,196,"A"],[45.8,18.9,197,"A"],[35.5,17.5,190,"A"],[42.8,18.5,195,"A"],[40.9,16.8,191,"A"],[37.2,19.4,184,"A"],[36.2,16.1,187,"A"],[42.1,19.1,195,"A"],[34.6,17.2,189,"A"],[42.9,17.6,196,"A"],[36.7,18.8,187,"A"],[35.1,19.4,193,"A"],[37.3,17.8,191,"A"],[41.3,20.3,194,"A"],[36.3,19.5,190,"A"],[36.9,18.6,189,"A"],[38.3,19.2,189,"A"],[38.9,18.8,190,"A"],[35.7,18.0,202,"A"],[41.1,18.1,205,"A"],[34.0,17.1,185,"A"],[39.6,18.1,186,"A"],[36.2,17.3,187,"A"],[40.8,18.9,208,"A"],[38.1,18.6,190,"A"],[40.3,18.5,196,"A"],[33.1,16.1,178,"A"],[43.2,18.5,192,"A"],[35.0,17.9,192,"A"],[41.0,20.0,203,"A"],[37.7,16.0,183,"A"],[37.8,20.0,190,"A"],[37.9,18.6,193,"A"],[39.7,18.9,184,"A"],[38.6,17.2,199,"A"],[38.2,20.0,190,"A"],[38.1,17.0,181,"A"],[43.2,19.0,197,"A"],[38.1,16.5,198,"A"],[45.6,20.3,191,"A"],[39.7,17.7,193,"A"],[42.2,19.5,197,"A"],[39.6,20.7,191,"A"],[42.7,18.3,196,"A"],[38.6,17.0,188,"A"],[37.3,20.5,199,"A"],[35.7,17.0,189,"A"],[41.1,18.6,189,"A"],[36.2,17.2,187,"A"],[37.7,19.8,198,"A"],[40.2,17.0,176,"A"],[41.4,18.5,202,"A"],[35.2,15.9,186,"A"],[40.6,19.0,199,"A"],[38.8,17.6,191,"A"],[41.5,18.3,195,"A"],[39.0,17.1,191,"A"],[44.1,18.0,210,"A"],[38.5,17.9,190,"A"],[43.1,19.2,197,"A"],[36.8,18.5,193,"A"],[37.5,18.5,199,"A"],[38.1,17.6,187,"A"],[41.1,17.5,190,"A"],[35.6,17.5,191,"A"],[40.2,20.1,200,"A"],[37.0,16.5,185,"A"],[39.7,17.9,193,"A"],[40.2,17.1,193,"A"],[40.6,17.2,187,"A"],[32.1,15.5,188,"A"],[40.7,17.0,190,"A"],[37.3,16.8,192,"A"],[39.0,18.7,185,"A"],[39.2,18.6,190,"A"],[36.6,18.4,184,"A"],[36.0,17.8,195,"A"],[37.8,18.1,193,"A"],[36.0,17.1,187,"A"],[41.5,18.5,201,"A"],[46.1,13.2,211,"G"],[50.0,16.3,230,"G"],[48.7,14.1,210,"G"],[50.0,15.2,218,"G"],[47.6,14.5,215,"G"],[46.5,13.5,210,"G"],[45.4,14.6,211,"G"],[46.7,15.3,219,"G"],[43.3,13.4,209,"G"],[46.8,15.4,215,"G"],[40.9,13.7,214,"G"],[49.0,16.1,216,"G"],[45.5,13.7,214,"G"],[48.4,14.6,213,"G"],[45.8,14.6,210,"G"],[49.3,15.7,217,"G"],[42.0,13.5,210,"G"],[49.2,15.2,221,"G"],[46.2,14.5,209,"G"],[48.7,15.1,222,"G"],[50.2,14.3,218,"G"],[45.1,14.5,215,"G"],[46.5,14.5,213,"G"],[46.3,15.8,215,"G"],[42.9,13.1,215,"G"],[46.1,15.1,215,"G"],[44.5,14.3,216,"G"],[47.8,15.0,215,"G"],[48.2,14.3,210,"G"],[50.0,15.3,220,"G"],[47.3,15.3,222,"G"],[42.8,14.2,209,"G"],[45.1,14.5,207,"G"],[59.6,17.0,230,"G"],[49.1,14.8,220,"G"],[48.4,16.3,220,"G"],[42.6,13.7,213,"G"],[44.4,17.3,219,"G"],[44.0,13.6,208,"G"],[48.7,15.7,208,"G"],[42.7,13.7,208,"G"],[49.6,16.0,225,"G"],[45.3,13.7,210,"G"],[49.6,15.0,216,"G"],[50.5,15.9,222,"G"],[43.6,13.9,217,"G"],[45.5,13.9,210,"G"],[50.5,15.9,225,"G"],[44.9,13.3,213,"G"],[45.2,15.8,215,"G"],[46.6,14.2,210,"G"],[48.5,14.1,220,"G"],[45.1,14.4,210,"G"],[50.1,15.0,225,"G"],[46.5,14.4,217,"G"],[45.0,15.4,220,"G"],[43.8,13.9,208,"G"],[45.5,15.0,220,"G"],[43.2,14.5,208,"G"],[50.4,15.3,224,"G"],[45.3,13.8,208,"G"],[46.2,14.9,221,"G"],[45.7,13.9,214,"G"],[54.3,15.7,231,"G"],[45.8,14.2,219,"G"],[49.8,16.8,230,"G"],[46.2,14.4,214,"G"],[49.5,16.2,229,"G"],[43.5,14.2,220,"G"],[50.7,15.0,223,"G"],[47.7,15.0,216,"G"],[46.4,15.6,221,"G"],[48.2,15.6,221,"G"],[46.5,14.8,217,"G"],[46.4,15.0,216,"G"],[48.6,16.0,230,"G"],[47.5,14.2,209,"G"],[51.1,16.3,220,"G"],[45.2,13.8,215,"G"],[45.2,16.4,223,"G"],[49.1,14.5,212,"G"],[52.5,15.6,221,"G"],[47.4,14.6,212,"G"],[50.0,15.9,224,"G"],[44.9,13.8,212,"G"],[50.8,17.3,228,"G"],[43.4,14.4,218,"G"],[51.3,14.2,218,"G"],[47.5,14.0,212,"G"],[52.1,17.0,230,"G"],[47.5,15.0,218,"G"],[52.2,17.1,228,"G"],[45.5,14.5,212,"G"],[49.5,16.1,224,"G"],[44.5,14.7,214,"G"],[50.8,15.7,226,"G"],[49.4,15.8,216,"G"],[46.9,14.6,222,"G"],[48.4,14.4,203,"G"],[51.1,16.5,225,"G"],[48.5,15.0,219,"G"],[55.9,17.0,228,"G"],[47.2,15.5,215,"G"],[49.1,15.0,228,"G"],[47.3,13.8,216,"G"],[46.8,16.1,215,"G"],[41.7,14.7,210,"G"],[53.4,15.8,219,"G"],[43.3,14.0,208,"G"],[48.1,15.1,209,"G"],[50.5,15.2,216,"G"],[49.8,15.9,229,"G"],[43.5,15.2,213,"G"],[51.5,16.3,230,"G"],[46.2,14.1,217,"G"],[55.1,16.0,230,"G"],[44.5,15.7,217,"G"],[48.8,16.2,222,"G"],[47.2,13.7,214,"G"],[46.8,14.3,215,"G"],[50.4,15.7,222,"G"],[45.2,14.8,212,"G"],[49.9,16.1,213,"G"],[46.5,17.9,192,"C"],[50.0,19.5,196,"C"],[51.3,19.2,193,"C"],[45.4,18.7,188,"C"],[52.7,19.8,197,"C"],[45.2,17.8,198,"C"],[46.1,18.2,178,"C"],[51.3,18.2,197,"C"],[46.0,18.9,195,"C"],[51.3,19.9,198,"C"],[46.6,17.8,193,"C"],[51.7,20.3,194,"C"],[47.0,17.3,185,"C"],[52.0,18.1,201,"C"],[45.9,17.1,190,"C"],[50.5,19.6,201,"C"],[50.3,20.0,197,"C"],[58.0,17.8,181,"C"],[46.4,18.6,190,"C"],[49.2,18.2,195,"C"],[42.4,17.3,181,"C"],[48.5,17.5,191,"C"],[43.2,16.6,187,"C"],[50.6,19.4,193,"C"],[46.7,17.9,195,"C"],[52.0,19.0,197,"C"],[50.5,18.4,200,"C"],[49.5,19.0,200,"C"],[46.4,17.8,191,"C"],[52.8,20.0,205,"C"],[40.9,16.6,187,"C"],[54.2,20.8,201,"C"],[42.5,16.7,187,"C"],[51.0,18.8,203,"C"],[49.7,18.6,195,"C"],[47.5,16.8,199,"C"],[47.6,18.3,195,"C"],[52.0,20.7,210,"C"],[46.9,16.6,192,"C"],[53.5,19.9,205,"C"],[49.0,19.5,210,"C"],[46.2,17.5,187,"C"],[50.9,19.1,196,"C"],[45.5,17.0,196,"C"],[50.9,17.9,196,"C"],[50.8,18.5,201,"C"],[50.1,17.9,190,"C"],[49.0,19.6,212,"C"],[51.5,18.7,187,"C"],[49.8,17.3,198,"C"],[48.1,16.4,199,"C"],[51.4,19.0,201,"C"],[45.7,17.3,193,"C"],[50.7,19.7,203,"C"],[42.5,17.3,187,"C"],[52.2,18.8,197,"C"],[45.2,16.6,191,"C"],[49.3,19.9,203,"C"],[50.2,18.8,202,"C"],[45.6,19.4,194,"C"],[51.9,19.5,206,"C"],[46.8,16.5,189,"C"],[45.7,17.0,195,"C"],[55.8,19.8,207,"C"],[43.5,18.1,202,"C"],[49.6,18.2,193,"C"],[50.8,19.0,210,"C"],[50.2,18.7,198,"C"]],"model":{"median":[44.0,17.3,197.0],"mean":[43.9087,17.1658,200.8691],"scale":[5.5228,2.011,14.074],"coef":[-3.864,1.992,-0.1999],"b":-0.9507},"roc":[[0.0,0.0],[0.0,0.0333],[0.0,0.9667],[0.0256,0.9667],[0.0256,1.0],[1.0,1.0]],"lr_cv":[0.976,0.963,0.988],"rf_cv":[0.976,0.935,0.976]};
+const NAVY='#27235A', PINK='#EC6AB2', PLUM='#84469A', LILAC='#BC82CC', CREAM='#FFF7FB';
+const M = DATA.model;
+const P = DATA.pts.map(r => ({L:r[0], D:r[1], F:r[2], s:r[3]}));
+const $ = id => document.getElementById(id);
+const avg = (arr, k) => arr.reduce((a, p) => a + p[k], 0) / arr.length;
+const fmt = (v, d) => v.toFixed(d).replace('-', '−');
+
+/* menu */
+const burger = $('burger'), nav = $('nav');
+burger.addEventListener('click', () => { const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+nav.addEventListener('click', e => { if (e.target.tagName === 'A') { nav.classList.remove('open'); burger.setAttribute('aria-expanded', false); } });
+
+/* species means */
+const SP = {A:{name:'Adelie', latin:'Pygoscelis adeliae', cls:1}, C:{name:'Chinstrap', latin:'Pygoscelis antarcticus', cls:0}, G:{name:'Gentoo', latin:'Pygoscelis papua', cls:0}};
+const RAW = {A:152, C:68, G:124};
+const ad = P.filter(p => p.s === 'A'), ot = P.filter(p => p.s !== 'A');
+[['L',1],['D',1],['F',0]].forEach(([k, d]) => { $('m' + k + '1').textContent = avg(ad, k).toFixed(d); $('m' + k + '0').textContent = avg(ot, k).toFixed(d); });
+
+/* penguin illustrations */
+const face = {
+ A: '<circle cx="64" cy="54" r="10" fill="#FFF7FB"/><circle cx="96" cy="54" r="10" fill="#FFF7FB"/><circle cx="64" cy="54" r="5" fill="#27235A"/><circle cx="96" cy="54" r="5" fill="#27235A"/><path d="M71 68 H89 L80 84 Z" fill="#0E0B22"/><path d="M71 68 H89 L87 72 H73 Z" fill="#EC6AB2"/>',
+ C: '<ellipse cx="80" cy="70" rx="33" ry="27" fill="#FFF7FB"/><path d="M50 74 Q80 104 110 74" fill="none" stroke="#27235A" stroke-width="3.5"/><circle cx="67" cy="60" r="4.5" fill="#27235A"/><circle cx="93" cy="60" r="4.5" fill="#27235A"/><path d="M73 68 H87 L80 82 Z" fill="#0E0B22"/>',
+ G: '<path d="M48 40 Q62 28 74 40 Q62 46 48 40 Z" fill="#FFF7FB"/><path d="M86 40 Q98 28 112 40 Q98 46 86 40 Z" fill="#FFF7FB"/><circle cx="64" cy="52" r="4.5" fill="#FFF7FB"/><circle cx="96" cy="52" r="4.5" fill="#FFF7FB"/><path d="M70 66 H90 L80 86 Z" fill="#EC6AB2"/>'
+};
+const back = ['<path d="M10 210 a115 115 0 0 1 230 0 Z" fill="#BC82CC"/>', '<path d="M10 210 a115 115 0 0 1 230 0 Z" fill="#FFE4F2"/>'];
+$('flock').innerHTML = ['A','C','G'].map(s => {
+ const g = P.filter(p => p.s === s);
+ return `<div class="peng"><div class="stage"><svg viewBox="0 0 250 250" aria-hidden="true">${back[s === 'A' ? 0 : 1]}<g transform="translate(45 18)"><use href="#pbody"/>${face[s]}</g></svg></div>
+ <span class="tag ${s === 'A' ? 'p' : ''}">class ${SP[s].cls}</span><h3>${SP[s].name}</h3><p class="m"><i>${SP[s].latin}</i> · ${RAW[s]} penguins</p>
+ <p class="m">bill ${avg(g,'L').toFixed(1)} × ${avg(g,'D').toFixed(1)} mm · flipper ${avg(g,'F').toFixed(0)} mm</p></div>`;
+}).join('');
+
+/* class balance */
+$('stack').innerHTML = [['A',PINK],['G',NAVY],['C',PLUM]].map(([s, c]) => `<div style="flex:${RAW[s]};background:${c}">${SP[s].name} ${RAW[s]}</div>`).join('');
+
+/* histograms */
+function hist(svg, k, lo, hi, step, ticks) {
+ const draw = () => {
+  const W = svg.clientWidth, H = svg.clientHeight; if (!W) return;
+  const n = Math.round((hi - lo) / step), a = Array(n).fill(0), o = Array(n).fill(0);
+  P.forEach(p => { let i = Math.floor((p[k] - lo) / step); i = Math.max(0, Math.min(n - 1, i)); (p.s === 'A' ? a : o)[i]++; });
+  const mx = Math.max(...a, ...o), pb = 26, pt = 8, bw = W / n, y = v => H - pb - (H - pb - pt) * v / mx;
+  let s = '';
+  o.forEach((v, i) => { if (v) s += `<rect x="${i*bw+0.5}" y="${y(v)}" width="${Math.max(bw-1,1)}" height="${H-pb-y(v)}" fill="${NAVY}" opacity=".85"/>`; });
+  a.forEach((v, i) => { if (v) s += `<rect x="${i*bw+0.5}" y="${y(v)}" width="${Math.max(bw-1,1)}" height="${H-pb-y(v)}" fill="${PINK}" opacity=".85"/>`; });
+  s += `<line x1="0" x2="${W}" y1="${H-pb}" y2="${H-pb}" stroke="${NAVY}"/>`;
+  ticks.forEach(t => { const x = (t - lo) / (hi - lo) * W; s += `<text x="${x}" y="${H-6}" text-anchor="middle" font-size="13">${t}</text>`; });
+  svg.innerHTML = s;
+ };
+ const ro = new ResizeObserver(draw); ro.observe(svg);
+}
+hist($('h0'), 'L', 32, 60, 1, [35, 40, 45, 50, 55]);
+hist($('h1'), 'D', 13, 21.8, 0.4, [14, 16, 18, 20]);
+hist($('h2'), 'F', 170, 232, 2, [180, 200, 220]);
+
+/* model */
+const logit = t => Math.log(t / (1 - t));
+const prob = (L, D, F) => {
+ const x = [L, D, F], zs = x.map((v, i) => (v - M.mean[i]) / M.scale[i]);
+ const parts = zs.map((z, i) => z * M.coef[i]);
+ const z = M.b + parts.reduce((a, b) => a + b, 0);
+ return {x, zs, parts, z, p: 1 / (1 + Math.exp(-z))};
+};
+
+/* scatter */
+function scatter(svg, getUser) {
+ const draw = () => {
+  const W = svg.clientWidth, H = svg.clientHeight; if (!W) return;
+  const small = W < 420, pl = 46, pr = 12, pt = 10, pb = 44;
+  const X = v => pl + (v - 31) / (61 - 31) * (W - pl - pr), Y = v => H - pb - (v - 12.5) / (22 - 12.5) * (H - pb - pt);
+  let s = `<defs><clipPath id="cl${svg.id}"><rect x="${pl}" y="${pt}" width="${W-pl-pr}" height="${H-pb-pt}"/></clipPath></defs>`;
+  for (let v = 35; v <= 60; v += 5) s += `<line x1="${X(v)}" x2="${X(v)}" y1="${pt}" y2="${H-pb}" stroke="${LILAC}" stroke-width="1" opacity=".6"/><text x="${X(v)}" y="${H-pb+20}" text-anchor="middle" font-size="13">${v}</text>`;
+  for (let v = 14; v <= 22; v += 2) s += `<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="${LILAC}" stroke-width="1" opacity=".6"/><text x="${pl-8}" y="${Y(v)+4}" text-anchor="end" font-size="13">${v}</text>`;
+  s += `<text x="${(pl+W-pr)/2}" y="${H-4}" text-anchor="middle" font-size="14" font-weight="600">bill length (mm)</text>`;
+  s += `<text transform="translate(13 ${(pt+H-pb)/2}) rotate(-90)" text-anchor="middle" font-size="14" font-weight="600">bill depth (mm)</text>`;
+  const col = {A: PINK, C: PLUM, G: NAVY}, r = small ? 3 : 4.2;
+  ['G', 'C', 'A'].forEach(sp => P.filter(p => p.s === sp).forEach(p => { s += `<circle cx="${X(p.L).toFixed(1)}" cy="${Y(p.D).toFixed(1)}" r="${r}" fill="${col[sp]}" opacity=".82"/>`; }));
+  const u = getUser && getUser();
+  if (u) {
+   const lt = logit(u.t), dAt = L => M.mean[1] + M.scale[1] / M.coef[1] * (lt - M.b - M.coef[0] * (L - M.mean[0]) / M.scale[0] - M.coef[2] * (u.F - M.mean[2]) / M.scale[2]);
+   s += `<line clip-path="url(#cl${svg.id})" x1="${X(31)}" y1="${Y(dAt(31))}" x2="${X(61)}" y2="${Y(dAt(61))}" stroke="${NAVY}" stroke-width="2.5" stroke-dasharray="8 6"/>`;
+   s += `<circle cx="${X(u.L)}" cy="${Y(u.D)}" r="13" fill="${CREAM}" fill-opacity=".35" stroke="${NAVY}" stroke-width="4"/><circle cx="${X(u.L)}" cy="${Y(u.D)}" r="4" fill="${NAVY}"/>`;
+  }
+  svg.innerHTML = s;
+ };
+ const ro = new ResizeObserver(draw); ro.observe(svg);
+ return draw;
+}
+scatter($('sc1'));
+
+/* CV dot plot */
+(() => {
+ const svg = $('cvp');
+ const rows = [['Logistic', DATA.lr_cv, PINK], ['Forest', DATA.rf_cv, NAVY]];
+ const draw = () => {
+  const W = svg.clientWidth, H = svg.clientHeight; if (!W) return;
+  const pl = 78, pr = 16, X = v => pl + (v - 0.92) / (1 - 0.92) * (W - pl - pr);
+  let s = '';
+  [0.92, 0.94, 0.96, 0.98, 1].forEach(v => { s += `<line x1="${X(v)}" x2="${X(v)}" y1="10" y2="${H-30}" stroke="${LILAC}"/><text x="${X(v)}" y="${H-10}" text-anchor="middle" font-size="13">${v.toFixed(2)}</text>`; });
+  rows.forEach(([name, f, c], i) => {
+   const y = 40 + i * 64, m = f.reduce((a, b) => a + b, 0) / f.length;
+   s += `<text x="0" y="${y+5}" font-size="16" font-weight="600">${name}</text>`;
+   s += `<line x1="${X(Math.min(...f))}" x2="${X(Math.max(...f))}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="3"/>`;
+   f.forEach(v => { s += `<circle cx="${X(v)}" cy="${y}" r="8" fill="${c}" stroke="#FFCCE8" stroke-width="2" opacity=".9"/>`; });
+   s += `<rect x="${X(m)-2}" y="${y-18}" width="4" height="36" fill="${c}"/><text x="${X(m)}" y="${y-24}" text-anchor="middle" font-size="15" font-weight="700">mean ${m.toFixed(3)}</text>`;
+  });
+  svg.innerHTML = s;
+ };
+ const ro = new ResizeObserver(draw); ro.observe(svg);
+})();
+
+/* ROC */
+(() => {
+ const svg = $('roc');
+ const draw = () => {
+  const W = svg.clientWidth, H = svg.clientHeight; if (!W) return;
+  const p = 44, X = v => p + v * (W - p - 12), Y = v => H - p - v * (H - p - 12);
+  let s = `<rect x="${X(0)}" y="${Y(1)}" width="${X(1)-X(0)}" height="${Y(0)-Y(1)}" fill="${CREAM}" rx="6"/>`;
+  [0, 0.5, 1].forEach(v => { s += `<text x="${X(v)}" y="${H-p+20}" text-anchor="middle" font-size="13">${v}</text><text x="${p-8}" y="${Y(v)+4}" text-anchor="end" font-size="13">${v}</text>`; });
+  s += `<line x1="${X(0)}" y1="${Y(0)}" x2="${X(1)}" y2="${Y(1)}" stroke="${PLUM}" stroke-dasharray="6 6"/>`;
+  s += `<polyline points="${DATA.roc.map(([a, b]) => X(a) + ',' + Y(b)).join(' ')}" fill="none" stroke="${PINK}" stroke-width="5" stroke-linejoin="round"/>`;
+  s += `<text x="${X(0.55)}" y="${Y(0.32)}" font-size="22" font-weight="700">AUC 0.999</text><text x="${X(0.55)}" y="${Y(0.32)+20}" font-size="13">dashed = random guess</text>`;
+  s += `<text x="${(X(0)+X(1))/2}" y="${H-4}" text-anchor="middle" font-size="14" font-weight="600">false positive rate</text>`;
+  s += `<text transform="translate(12 ${(Y(0)+Y(1))/2}) rotate(-90)" text-anchor="middle" font-size="14" font-weight="600">true positive rate</text>`;
+  svg.innerHTML = s;
+ };
+ const ro = new ResizeObserver(draw); ro.observe(svg);
+})();
+
+/* weights and importance */
+const NAMES = ['bill length', 'bill depth', 'flipper length'];
+$('coef').innerHTML = [0, 1, 2].map(i => {
+ const w = M.coef[i], pct = Math.abs(w) / 4 * 50;
+ const pos = w >= 0 ? `left:50%;width:${pct}%` : `left:${50-pct}%;width:${pct}%`;
+ return `<div class="hbar"><span>${NAMES[i]}</span><div class="t"><div class="z"></div><div class="f" style="${pos};background:${w >= 0 ? PINK : NAVY}"></div></div><span class="n">${fmt(w, 2)}</span></div>`;
+}).join('');
+$('imp').innerHTML = [[0, 0.583], [2, 0.236], [1, 0.181]].map(([i, v]) => `<div class="hbar"><span>${NAMES[i]}</span><div class="t"><div class="f" style="left:0;width:${v/0.6*100}%;background:${PLUM}"></div></div><span class="n">${v.toFixed(2)}</span></div>`).join('');
+
+/* try it */
+const st = {L: 40.2, D: 18.6, F: 192, t: 0.7};
+const sL = $('sL'), sD = $('sD'), sF = $('sF');
+const drawTry = scatter($('sc2'), () => st);
+const PRE = [['Our new penguin', 40.2, 18.6, 192], ['Typical Chinstrap', 48.8, 18.4, 196], ['Typical Gentoo', 47.5, 15.0, 217], ['Penguin 129', 44.1, 18.0, 210], ['Penguin 340', 43.5, 18.1, 202]];
+$('presets').innerHTML = PRE.map((p, i) => `<button type="button" data-i="${i}" aria-pressed="${i === 0}">${p[0]}</button>`).join('');
+function update() {
+ $('oL').textContent = st.L.toFixed(1) + ' mm'; $('oD').textContent = st.D.toFixed(1) + ' mm'; $('oF').textContent = st.F.toFixed(0) + ' mm';
+ const r = prob(st.L, st.D, st.F), yes = r.p >= st.t;
+ $('pc').textContent = Math.round(r.p * 100) + '%';
+ $('word').textContent = yes ? 'Adelie' : 'Not Adelie';
+ $('word').style.color = yes ? PINK : NAVY;
+ $('how').innerHTML = '<thead><tr><th>Feature</th><th>Value</th><th>Standardized</th><th>× Weight</th><th>= Part of z</th></tr></thead><tbody>' +
+  [0, 1, 2].map(i => `<tr><td>${NAMES[i]}</td><td>${r.x[i].toFixed(i === 2 ? 0 : 1)}</td><td>${fmt(r.zs[i], 2)}</td><td>${fmt(M.coef[i], 2)}</td><td>${fmt(r.parts[i], 2)}</td></tr>`).join('') +
+  `<tr><td>intercept</td><td></td><td></td><td></td><td>${fmt(M.b, 2)}</td></tr><tr><td><b>z → probability</b></td><td></td><td></td><td></td><td><b>${fmt(r.z, 2)} → ${r.p.toFixed(2)}</b></td></tr></tbody>`;
+ drawTry();
+}
+function setPressed(i) { document.querySelectorAll('#presets button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.i === i))); }
+[[sL, 'L'], [sD, 'D'], [sF, 'F']].forEach(([el, k]) => el.addEventListener('input', () => { st[k] = +el.value; setPressed(-1); update(); }));
+$('presets').addEventListener('click', e => {
+ const b = e.target.closest('button'); if (!b) return;
+ const p = PRE[+b.dataset.i]; st.L = p[1]; st.D = p[2]; st.F = p[3];
+ sL.value = st.L; sD.value = st.D; sF.value = st.F; setPressed(+b.dataset.i); update();
+});
+const t5 = $('t5'), t7 = $('t7');
+const setT = t => { st.t = t; t5.setAttribute('aria-pressed', t === 0.5); t7.setAttribute('aria-pressed', t === 0.7); update(); };
+t5.addEventListener('click', () => setT(0.5)); t7.addEventListener('click', () => setT(0.7));
+update();
+}
+</script>
+</body>
+</html>
